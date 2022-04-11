@@ -27,6 +27,7 @@ export default function App() {
       </ScrollView>
       
       <FlatList
+        numColumns={2}
         style={styles.smallcontainer} 
         keyExtractor={(item) => item.id}
         data={people}
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
   itemx: {
     padding: 30,
     backgroundColor: 'pink',
-    fontSize: 24,
+    fontSize: 13,
     color: 'black',
+    marginHorizontal: 20,
   },
 });

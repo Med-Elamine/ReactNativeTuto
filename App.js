@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native';
 
 export default function App() {
@@ -14,12 +14,18 @@ export default function App() {
     { name: 'bowser', id: '7' },
   ]);
 
+  const pressHandler = (id) => {
+    setPeople((updatedPeople) =>  {return updatedPeople.filter(person => person.id != id)});
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.smallcontainer}>
         {people.map(item => (
             <View key={item.id}>
-              <Text style={styles.itemx}>Name nº{item.id} : {item.name}</Text>
+              <TouchableOpacity onPress={() => pressHandler(item.id)}>
+                <Text style={styles.itemx}>Name nº{item.id} : {item.name}</Text>
+              </TouchableOpacity>
               <View style={styles.line}></View>
             </View>
           )
@@ -32,7 +38,9 @@ export default function App() {
         keyExtractor={(item) => item.id}
         data={people}
         renderItem={({item}) => (
-          <Text style={styles.itemx}>Name nº{item.id} : {item.name}</Text>
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+            <Text style={styles.itemx}>Name nº{item.id} : {item.name}</Text>
+          </TouchableOpacity>
         )}
         ItemSeparatorComponent={() => (<View style={styles.line}></View>)}
       />
@@ -45,10 +53,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 40,
-    paddingHorizontal: 20,
+    alignItems: 'center',
   },
   smallcontainer: {
     flex: 1,
+    marginBottom: 20,
   },
   line: {
     height: 2,
